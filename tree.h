@@ -8,18 +8,19 @@ template <typename T>
 class Tree
 {
 private:
-
+    TreeNode<T>* root;
 
     void addTreeNode(TreeNode<T>*r, const T& element);
     void printTreeNode(TreeNode<T>* r, int u, std::ostream &oStream, void(*printFunc)(std::ostream& os, const T& value));
+    size_t getHeightNode (TreeNode<T> *r);
 
 public:
     Tree();
     void add (const T& element);
 
     void printTree(std::ostream& oStream, void(*printFunc)(std::ostream& os, const T& value));
-TreeNode<T>* root;
 
+    size_t getHeight();
 
 };
 
@@ -42,10 +43,10 @@ void Tree<T>::addTreeNode(TreeNode<T>*r, const T& element)
     if (r==nullptr)
     {
         r=new TreeNode<T>(element);
+        if (root==nullptr) root=r;
         return;
     }
-
-    if(element<r->value)
+    if(element<=r->value)
     {
         if (r->left==nullptr)
         {
@@ -54,8 +55,6 @@ void Tree<T>::addTreeNode(TreeNode<T>*r, const T& element)
         }
         addTreeNode(r->left, element);
     }
-
-
    else if (element>r->value)
     {
         if (r->right==nullptr)
@@ -85,6 +84,24 @@ void Tree<T>::printTreeNode(TreeNode<T>* r, int u, std::ostream &oStream, void(*
    printTreeNode(r->right, ++u, oStream, printFunc);
 }
 
+template <typename T>
+size_t Tree<T>::getHeight()
+{
+    return getHeightNode(root);
+}
+
+
+template <typename T>
+size_t Tree<T>::getHeightNode (TreeNode<T>* r)
+{
+    if (r==nullptr) return 0;
+
+    size_t sizeLeft=getHeightNode(r->left);
+    size_t sizeRight=getHeightNode(r->right);
+
+    if (sizeLeft>=sizeRight) return (1+sizeLeft);
+    return (1+sizeRight);
+}
 
 
 #endif // TREE_H
