@@ -11,8 +11,13 @@ QT       -= gui
 TARGET = L7
 CONFIG   += console
 CONFIG   -= app_bundle
+CONFIG += C++11
 
 TEMPLATE = app
 
 
 SOURCES += main.cpp
+
+HEADERS += \
+    treenode.h \
+    tree.h
