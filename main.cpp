@@ -1,10 +1,5 @@
 #include "tree.h"
 
-void printInt(std::ostream& os, const int& value)
-{
-    os<<value<<'\n';
-}
-
 int main (int argc, char* argv[])
 {
     Tree<int> tree;
@@ -20,8 +15,6 @@ int main (int argc, char* argv[])
 
     for (int i=0;i<number;i++)
       tree.add(rand()%(max+1));
-
-
 
     tree.printTree(std::cout, printInt);
     try
