@@ -9,17 +9,30 @@ int main (int argc, char* argv[])
 {
     Tree<int> tree;
 
-  tree.add(10);
-  tree.add(1);
-  tree.add(11);
-  tree.add(0);
-  tree.add(3);
-  tree.add(10);
-  tree.add(12);
+    int number=0, max=0;
+
+    std::cout <<"Input number of elements: ";
+    std::cin >>number;
+    std::cout <<"Input max element: ";
+    std::cin >>max;
+
+    srand (time_t(0));
+
+    for (int i=0;i<number;i++)
+      tree.add(rand()%(max+1));
+
+
 
     tree.printTree(std::cout, printInt);
+    try
+    {
+         std::cout <<"Max leaf = " <<*tree.findMaxLeaf();
+    }
+    catch (NullElementException e)
+    {
+        std::cerr<<e.getError()<<"\n";
+    }
 
-    std::cout <<tree.getHeight();
     std::cin.get();
     return 0;
 }

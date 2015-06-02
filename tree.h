@@ -1,8 +1,9 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include "treenode.h"
 #include <iostream>
+#include "treenode.h"
+#include "nullelementexception.h"
 
 template <typename T>
 class Tree
@@ -12,7 +13,8 @@ private:
 
     void addTreeNode(TreeNode<T>*r, const T& element);
     void printTreeNode(TreeNode<T>* r, int u, std::ostream &oStream, void(*printFunc)(std::ostream& os, const T& value));
-    size_t getHeightNode (TreeNode<T> *r);
+
+    TreeNode<T>* _findMaxLeaf(TreeNode<T>*r);
 
 public:
     Tree();
@@ -20,7 +22,8 @@ public:
 
     void printTree(std::ostream& oStream, void(*printFunc)(std::ostream& os, const T& value));
 
-    size_t getHeight();
+    //type T must have an overloaded operator >
+    T *findMaxLeaf();
 
 };
 
@@ -77,30 +80,40 @@ void Tree<T>::printTreeNode(TreeNode<T>* r, int u, std::ostream &oStream, void(*
 {
    if (r==nullptr) return;
 
-   printTreeNode(r->left, ++u, oStream, printFunc);
-   for (int i=0;i<u;++i) oStream<<"|";
+   printTreeNode(r->left, u+1, oStream, printFunc);
+
+   for (int i=0;i<u;++i) oStream<<"*";
    printFunc(oStream, r->value);
-   u--;
-   printTreeNode(r->right, ++u, oStream, printFunc);
-}
 
-template <typename T>
-size_t Tree<T>::getHeight()
-{
-    return getHeightNode(root);
+   printTreeNode(r->right,u+1, oStream, printFunc);
 }
 
 
 template <typename T>
-size_t Tree<T>::getHeightNode (TreeNode<T>* r)
+T* Tree<T>::findMaxLeaf()
 {
-    if (r==nullptr) return 0;
+    return &_findMaxLeaf(root)->value;
+}
 
-    size_t sizeLeft=getHeightNode(r->left);
-    size_t sizeRight=getHeightNode(r->right);
+template <typename T>
+TreeNode<T>*Tree<T>::_findMaxLeaf(TreeNode<T> *r)
+{
 
-    if (sizeLeft>=sizeRight) return (1+sizeLeft);
-    return (1+sizeRight);
+    if (r==nullptr)
+    {
+        if (root==r) throw NullElementException("Tree is empty");
+        return nullptr;
+    }
+
+    if (r->left==nullptr && r->right==nullptr) return r;
+    if (r->left==nullptr) return _findMaxLeaf(r->right);
+    if (r->right==nullptr) return _findMaxLeaf(r->left);
+
+    TreeNode<T>* maxLeft=_findMaxLeaf(r->left);
+    TreeNode<T>* maxRight=_findMaxLeaf(r->right);
+
+
+    return (maxLeft->value > maxRight->value)? maxLeft : maxRight;
 }
 
 

@@ -16,8 +16,10 @@ CONFIG += C++11
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    nullelementexception.cpp
 
 HEADERS += \
     treenode.h \
-    tree.h
+    tree.h \
+    nullelementexception.h
