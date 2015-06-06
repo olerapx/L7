@@ -1,5 +1,10 @@
 #include "tree.h"
 
+void printInt(std::ostream &os, const int& i)
+{
+    os<<i;
+}
+
 int main (int argc, char* argv[])
 {
     Tree<int> tree;

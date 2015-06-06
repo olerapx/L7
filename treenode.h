@@ -22,8 +22,4 @@ TreeNode<T>::TreeNode(const T &element)
     value=element;
 }
 
-
-
-
-
 #endif // TREENODE_H

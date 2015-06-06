@@ -12,7 +12,6 @@ public:
     NullElementException(std::string what);
 
     inline std::string getError (){return error;}
-
 };
 
 #endif // NULLELEMENTEXCEPTION_H

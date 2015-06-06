@@ -88,7 +88,6 @@ void Tree<T>::printTreeNode(TreeNode<T>* r, int u, std::ostream &oStream, void(*
    printTreeNode(r->right,u+1, oStream, printFunc);
 }
 
-
 template <typename T>
 T* Tree<T>::findMaxLeaf()
 {
@@ -112,9 +111,7 @@ TreeNode<T>*Tree<T>::_findMaxLeaf(TreeNode<T> *r)
     TreeNode<T>* maxLeft=_findMaxLeaf(r->left);
     TreeNode<T>* maxRight=_findMaxLeaf(r->right);
 
-
     return (maxLeft->value > maxRight->value)? maxLeft : maxRight;
 }
-
 
 #endif // TREE_H
