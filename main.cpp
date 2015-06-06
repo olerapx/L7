@@ -24,7 +24,7 @@ int main (int argc, char* argv[])
     tree.printTree(std::cout, printInt);
     try
     {
-         std::cout <<"Max leaf = " <<*tree.findMaxLeaf();
+         std::cout <<"Max leaf = " <<*tree.findMaxLeaf()<<"\n";
     }
     catch (NullElementException e)
     {

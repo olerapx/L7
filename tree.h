@@ -84,6 +84,7 @@ void Tree<T>::printTreeNode(TreeNode<T>* r, int u, std::ostream &oStream, void(*
 
    for (int i=0;i<u;++i) oStream<<"*";
    printFunc(oStream, r->value);
+   oStream<<"\n";
 
    printTreeNode(r->right,u+1, oStream, printFunc);
 }
